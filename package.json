@@ -1,0 +1,43 @@
+{
+  "name": "todo_api",
+  "version": "0.1.0",
+  "description": "API for Todo app with UI running on Angular, React, or Vue",
+  "scripts": {
+    "test": "jest --forceExit --coverage --verbose",
+    "start": "npm run build --silent && npm run serve",
+    "build": "npm run build-ts && npm run tslint",
+    "serve": "node build/start.js",
+    "serve-debug": "nodemon --inspect build/start.js",
+    "build-ts": "rm -rf ./build/ && tsc",
+    "dev-start": "nodemon --config \"./nodemon.json\"/",
+    "tslint": "tslint -c tslint.json -p tsconfig.json"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^6.1.1",
+    "@types/express": "^4.16.1",
+    "@types/jest": "^24.0.13",
+    "@types/mongodb": "^3.1.27",
+    "@types/mongoose": "^5.5.1",
+    "@types/node": "^12.0.2",
+    "@types/supertest": "^2.0.7",
+    "@types/winston": "^2.4.4",
+    "@types/ws": "^6.0.1",
+    "jest": "^24.8.0",
+    "jest-express": "^1.10.1",
+    "nodemon": "^1.19.0",
+    "supertest": "^4.0.2",
+    "ts-jest": "^24.0.2",
+    "ts-node": "^8.1.0",
+    "tslint": "^5.16.0",
+    "tslint-no-circular-imports": "^0.6.2",
+    "typescript": "^3.4.5"
+  },
+  "dependencies": {
+    "awilix": "^4.2.2",
+    "dotenv": "^8.0.0",
+    "express": "^4.16.4",
+    "mongoose": "^5.5.9",
+    "winston": "^3.2.1",
+    "ws": "^7.0.0"
+  }
+}
