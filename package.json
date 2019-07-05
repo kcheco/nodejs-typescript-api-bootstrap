@@ -1,7 +1,7 @@
 {
-  "name": "todo_api",
+  "name": "nodejs-typescript-bootstrap-api",
   "version": "0.1.0",
-  "description": "API for Todo app with UI running on Angular, React, or Vue",
+  "description": "A TypeScript bootstrap for any API I decide to build on NodeJS",
   "scripts": {
     "test": "jest --forceExit --coverage --verbose",
     "start": "npm run build --silent && npm run serve",
