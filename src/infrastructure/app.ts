@@ -13,15 +13,15 @@ const host = process.env.HOST || 'http://localhost';
 const port = process.env.PORT || 3000;
 
 export interface IApplicationArgument {
-  appConfig?: object,
-  database?: Database,
-  router?: Router,
-};
+  appConfig?: object;
+  database?: Database;
+  router?: Router;
+}
 
 class Application {
   /**
    * The database instance used by the application
-   * 
+   *
    * @property
    * @private
    */
@@ -29,7 +29,7 @@ class Application {
 
   /**
    * The current environment the application is running
-   * 
+   *
    * @property
    * @private
    */
@@ -37,7 +37,7 @@ class Application {
 
   /**
    * The router instance used by the application
-   * 
+   *
    * @property
    * @private
    */
@@ -45,15 +45,15 @@ class Application {
 
   /**
    * The application's web framework
-   * 
+   *
    * @property
    * @public
    */
-  public webApp: express.Express ;
+  public webApp: express.Express;
 
   /**
    * The logger instance used by the application
-   * 
+   *
    * @property
    * @public
    */
@@ -61,7 +61,7 @@ class Application {
 
   /**
    * The application's configuration settings
-   * 
+   *
    * @property
    * @public
    */
@@ -70,7 +70,7 @@ class Application {
   /**
    * The arguments passed to the constructor when
    * application is being instantiated
-   * 
+   *
    * @property
    * @public
    */
@@ -78,7 +78,7 @@ class Application {
 
   /**
    * Used to create an instance of Application
-   * 
+   *
    * @constructor
    */
   constructor(args?: IApplicationArgument) {
@@ -96,7 +96,7 @@ class Application {
 
   /**
    * A getter for returning the current environment
-   * 
+   *
    * @property
    * @public
    */
@@ -106,7 +106,7 @@ class Application {
 
   /**
    * A setter for specifying the current environment
-   * 
+   *
    * @property
    * @public
    */
@@ -116,9 +116,9 @@ class Application {
 
   /**
    * Returns the root path of the application
-   * 
+   *
    * @public
-   * 
+   *
    * @returns string
    */
   public rootPath(): string {
@@ -129,9 +129,9 @@ class Application {
    * Calls on the database instance to establish connection or
    * logs error when application is not configured to use a
    * database
-   * 
+   *
    * @private
-   * 
+   *
    * @returns void
    */
   private loadDatabase(): void {
@@ -147,11 +147,11 @@ class Application {
   }
 
   /**
-   * Calls on the router instance to initialize and 
+   * Calls on the router instance to initialize and
    * incorporate into web framework
-   * 
+   *
    * @private
-   * 
+   *
    * @returns void
    */
   private initMiddleware(): void {
@@ -161,9 +161,9 @@ class Application {
 
   /**
    * Loads additional web framework settings
-   * 
+   *
    * @private
-   * 
+   *
    * @returns void
    */
   private loadSettings(): void {
@@ -178,9 +178,9 @@ class Application {
   /**
    * Incorporates CORS into all web requests
    * Read more: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
-   * 
+   *
    * @private
-   * 
+   *
    * @returns void
    */
   private applyCORSHeaders(): void {

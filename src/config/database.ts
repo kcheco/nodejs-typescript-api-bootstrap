@@ -4,12 +4,12 @@ import dotenv from 'dotenv';
 dotenv.config({ path: path.join(__dirname, '../../.env')});
 
 export interface IDatabaseConfiguration {
-  default?: object,
-  development?: object,
-  production?: object,
-  staging?: object,
-  test?: object
-};
+  default?: object;
+  development?: object;
+  production?: object;
+  staging?: object;
+  test?: object;
+}
 
 const dbConfig: IDatabaseConfiguration = {
   default: {
@@ -30,8 +30,8 @@ const dbConfig: IDatabaseConfiguration = {
     pass: process.env.PROD_MONGODB_PASS,
   },
   test: {
-    dbName: 'todo_api_testing'
-  }
+    dbName: 'todo_api_testing',
+  },
 };
 
 export default dbConfig;

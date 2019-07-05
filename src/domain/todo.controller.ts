@@ -9,31 +9,31 @@ export default class TodoController {
   /**
    * The service utilized to communicate message requests to and
    * from data layer
-   * 
+   *
    * @private
    * @property
    */
   private readonly _service: TodoService;
-  
+
   /**
    * the default set up when instance is created
-   * 
-   * @param service the default service for an instance of this 
+   *
+   * @param service the default service for an instance of this
    * controller
    */
   constructor(service: TodoService) {
     this._service = service;
-  };
+  }
 
   /**
    * Receives a request from the router to get a list of todos
-   * 
+   *
    * @param _ Request
    * @param res Response
-   * 
+   *
    * @returns Promise<void>
    */
-  public async getList(req: Request, res: Response) : Promise<void> {
+  public async getList(req: Request, res: Response): Promise<void> {
     return await this._service.getAllTodos()
       .then((todos) => {
         logger.info('GET /api/todos successful call to retrieve all todos');
@@ -48,20 +48,20 @@ export default class TodoController {
 
   /**
    * Receives a request from router to find a specific todo
-   * 
+   *
    * @param req Request
    * @param res Response
-   * 
+   *
    * @returns Promise<void>
    */
-  public async findTodo(req: Request, res: Response, next: NextFunction) : Promise<void> {
+  public async findTodo(req: Request, res: Response, next: NextFunction): Promise<void> {
     const id = req.params.id;
 
     return await this._service.findOneTodo(id)
       .then((todo) => {
         logger.info(`GET /api/todos/%s successful call to retrieve todo`, req.params.id);
 
-        if(!todo || todo === null) {
+        if (!todo || todo === null) {
           throw new Error(`Todo with id ${req.params.id} does not exist.`);
           next();
         }
@@ -77,13 +77,13 @@ export default class TodoController {
 
   /**
    * Receives a request from router to create a new todo
-   * 
+   *
    * @param req Request
    * @param res Response
-   * 
+   *
    * @returns Promise<void>
    */
-  public async createTodo(req: Request, res: Response) : Promise<void> {
+  public async createTodo(req: Request, res: Response): Promise<void> {
     const todo = new Todo({
       task: req.query.task,
       completed: req.query.completed || false,
@@ -106,13 +106,13 @@ export default class TodoController {
 
   /**
    * Receives request from router to update a todo
-   * 
+   *
    * @param req Request
    * @param res Response
-   * 
+   *
    * @returns Promise<void>
    */
-  public updateTodo(req: Request, res: Response, next: NextFunction) : Promise<void> {
+  public updateTodo(req: Request, res: Response, next: NextFunction): Promise<void> {
     const id = req.params.id;
     const updateValue = new Todo({
       _id: id,
@@ -122,7 +122,7 @@ export default class TodoController {
 
     logger.info(`PUT /api/todos/${ id } successfully called`);
     logger.info(`Params: %s`, JSON.stringify(req.query));
-    
+
     return this._service.updateExistingTodo(id, updateValue)
       .then((completed) => {
         if (!completed) {
@@ -134,7 +134,7 @@ export default class TodoController {
         logger.info(`Todo id ${ id } updated`);
         res.status(200).json({
           success: true,
-          message: `Todo id ${ id } updated successfully`
+          message: `Todo id ${ id } updated successfully`,
         });
       })
       .catch((error) => {
@@ -145,18 +145,18 @@ export default class TodoController {
 
   /**
    * Receives request from router to delete a todo
-   * 
+   *
    * @param req Request
    * @param res Response
-   * 
+   *
    * @returns Promise<void>
    */
-  public deleteTodo(req: Request, res: Response, next: NextFunction) : Promise<void> {
+  public deleteTodo(req: Request, res: Response, next: NextFunction): Promise<void> {
     const id = req.params.id;
 
     logger.info(`DELETE /api/todos/${ id } successfully called`);
     logger.info(`Params: %s`, JSON.stringify(req.params));
-    
+
     return this._service.deleteOneTodo(id)
       .then((completed) => {
         if (!completed) {
@@ -168,7 +168,7 @@ export default class TodoController {
         logger.info(`Todo id ${ id } removed`);
         res.status(200).json({
           success: true,
-          message: `Todo id ${ id } removed successfully`
+          message: `Todo id ${ id } removed successfully`,
         });
       })
       .catch((error) => {
@@ -181,10 +181,10 @@ export default class TodoController {
 /**
  * A factory for creating a new TodoController along with its dependencies
  */
-export const createTodoController = () : TodoController => {
+export const createTodoController = (): TodoController => {
   const repo = new TodoRepository();
   const service = new TodoService(repo);
   const controller = new TodoController(service);
 
   return controller;
-}
+};

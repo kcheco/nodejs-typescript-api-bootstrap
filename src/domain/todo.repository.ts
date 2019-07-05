@@ -4,7 +4,7 @@ import { Model } from 'mongoose';
 export default class TodoRepository {
   /**
    * The model object used by the repository
-   * 
+   *
    * @private
    * @property
    */
@@ -12,7 +12,7 @@ export default class TodoRepository {
 
   /**
    * Initializes with the model object
-   * 
+   *
    * @param model (optional)
    */
   constructor(model?: Model<ITodoDocument>) {
@@ -21,12 +21,12 @@ export default class TodoRepository {
 
   /**
    * Calls on the persistance layer to save a todo
-   * 
-   * @param attributes 
-   * 
-   * @returns ITodoDocument
+   *
+   * @param attributes
+   *
+   * @returns Promise
    */
-  public async create(attributes: ITodoDocument) : Promise<ITodoDocument> {
+  public async create(attributes: ITodoDocument): Promise<ITodoDocument> {
     const result = await this._model.create(attributes);
 
     return result;
@@ -34,13 +34,13 @@ export default class TodoRepository {
 
   /**
    * Calls on the persistence layer to apply changes to a todo
-   * 
-   * @param id 
-   * @param attributes 
-   * 
-   * @returns any
+   *
+   * @param id
+   * @param attributes
+   *
+   * @returns Promise
    */
-  public async update(id: string, attributes: ITodoDocument) : Promise<any> {
+  public async update(id: string, attributes: ITodoDocument): Promise<any> {
     const result = await this._model.updateOne({_id: id}, attributes);
 
     return result;
@@ -48,20 +48,21 @@ export default class TodoRepository {
 
   /**
    * Calls on the persistence layer to find a todo
-   * 
+   *
+   * @returns Promise
    */
-  public async find() : Promise<ITodoDocument[]>{
+  public async find(): Promise<ITodoDocument[]> {
     return this._model.find();
   }
 
   /**
    * Calls on the persistence layer to find a specific todo
-   * 
-   * @param id 
-   * 
-   * @returns ITodoDocument
+   *
+   * @param id
+   *
+   * @returns Promise
    */
-  public async findOne(id: string) : Promise<ITodoDocument> {
+  public async findOne(id: string): Promise<ITodoDocument> {
     const result = await this._model.findOne({_id: id.toString()});
 
     return result;
@@ -69,10 +70,10 @@ export default class TodoRepository {
 
   /**
    * Calls on persistence layer to remove a todo
-   * 
-   * @param id 
-   * 
-   * @returns boolean
+   *
+   * @param id
+   *
+   * @returns Promise
    */
   public async delete(id: string): Promise<boolean> {
     const result = await this._model.deleteOne({_id: id});

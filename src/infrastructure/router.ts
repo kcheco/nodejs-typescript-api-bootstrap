@@ -6,7 +6,7 @@ import express from 'express';
 class Router {
   /**
    * The express routing middleware
-   * 
+   *
    * @private
    * @property
    */
@@ -14,7 +14,7 @@ class Router {
 
   /**
    * The controller that will handle the requests
-   * 
+   *
    * @private
    * @property
    */
@@ -30,7 +30,7 @@ class Router {
 
   /**
    * Initializes the express router and maps application routes
-   * 
+   *
    * @returns express.Router
    */
   public init(): express.Router {
@@ -42,7 +42,7 @@ class Router {
 
   /**
    * Define all routes the application will use
-   * 
+   *
    * @returns void
    */
   private mapRoutes(): void {
@@ -53,12 +53,12 @@ class Router {
     // define routes
     this._router.route('/api/todos')
       .get(this._controller.getList.bind(this._controller))
-      .post(this._controller.createTodo.bind(this._controller))
+      .post(this._controller.createTodo.bind(this._controller));
 
     this._router.route('/api/todos/:id')
       .get(this._controller.findTodo.bind(this._controller))
       .put(this._controller.updateTodo.bind(this._controller))
-      .delete(this._controller.deleteTodo.bind(this._controller))
+      .delete(this._controller.deleteTodo.bind(this._controller));
   }
 }
 

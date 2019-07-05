@@ -12,6 +12,7 @@ const todoSchema = new mongoose.Schema({
   timestamps: true,
 });
 
+// tslint:disable-next-line:variable-name
 const Todo = mongoose.model<ITodoDocument>('Todo', todoSchema);
 
 export default Todo;

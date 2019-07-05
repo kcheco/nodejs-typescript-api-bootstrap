@@ -8,16 +8,16 @@ import logger from '../utilities/logger';
 dotenv.config({path: '../../.env'});
 
 export interface IDatabaseArgument {
-  logger?: Logger,
-  dbConfig?: IDatabaseConfiguration,
-  mongoose?: Mongoose,
-};
+  logger?: Logger;
+  dbConfig?: IDatabaseConfiguration;
+  mongoose?: Mongoose;
+}
 
 class Database {
   /**
    * the configuration file the database instance uses to
    * connect to third-party client
-   * 
+   *
    * @property
    * @private
    */
@@ -25,7 +25,7 @@ class Database {
 
   /**
    * the logger instance
-   * 
+   *
    * @property
    * @private
    */
@@ -33,7 +33,7 @@ class Database {
 
   /**
    * the mongoose instance used to connect to MongoDB
-   * 
+   *
    * @property
    * @private
    */
@@ -41,7 +41,7 @@ class Database {
 
   /**
    * the mongoose connection when established
-   * 
+   *
    * @property
    * @public
    */
@@ -49,7 +49,7 @@ class Database {
 
   /**
    * the arguments passed to the constructor
-   * 
+   *
    * @property
    * @public
    */
@@ -57,26 +57,28 @@ class Database {
 
   /**
    * Getter for retrieving the database uri
-   * 
+   *
    * @property
    * @private
    */
   get databaseURI(): string {
     let uri: string;
 
-    switch(process.env.NODE_ENV) {
+    switch (process.env.NODE_ENV) {
       case 'test':
         uri = 'mongodb://127.0.0.1:27017';
       default:
-        uri = process.env.MONGODB_URL || process.env.MONGODB_ATLAS_URL || 'mongodb://127.0.0.1:27017';
+        uri = process.env.MONGODB_URL ||
+              process.env.MONGODB_ATLAS_URL ||
+              'mongodb://127.0.0.1:27017';
     }
-    
+
     return uri;
   }
 
   /**
    * Initializes an instance of Database
-   * 
+   *
    * @params args (optional)
    */
   constructor(args?: IDatabaseArgument) {
@@ -88,9 +90,9 @@ class Database {
 
   /**
    * Returns the default configuration an instance of Database can use
-   * 
+   *
    * @private
-   * 
+   *
    * @returns object
    */
   private get defaultConfiguration(): object {
@@ -102,25 +104,25 @@ class Database {
 
   /**
    * Returns the status of a database connection
-   * 
+   *
    * @public
-   * 
+   *
    * @returns boolean
    */
   public isConnected(): boolean {
     if (typeof this.connection === 'undefined') {
       return false;
     }
-    
+
     return (this.connection.readyState === 2) ? true : false;
   }
 
   /**
    * Connects to mongodb using existing configuration or a new configuration
-   * 
+   *
    * @params config (optional)
    * @public
-   * 
+   *
    * @returns void
    */
   public establishConnection(config?: any): void {
@@ -142,7 +144,7 @@ class Database {
     process.on('SIGINT', this.handleConnectionInterruption.bind(this));
   }
 
-  private handleConnectionInterruption() {
+  private handleConnectionInterruption(): void {
     this.connection.close();
     this._logger.info('Database Connection closed due to NodeJS process termination');
     process.exit(0);

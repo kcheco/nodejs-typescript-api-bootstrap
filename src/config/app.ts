@@ -6,7 +6,7 @@ export interface IApplicationConfig {
   websocketEnabled?: boolean;
 }
 
-export const applicationConfig : IApplicationConfig = {
+export const applicationConfig: IApplicationConfig = {
   cacheEnabled: false,
   corsEnabled: false,
   databaseEnabled: true,

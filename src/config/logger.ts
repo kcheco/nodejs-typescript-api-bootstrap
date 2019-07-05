@@ -13,7 +13,7 @@ const loggerOptions = {
     handleExceptions: true,
     json: false,
     colorize: true,
-    silent: process.env.NODE_ENV === 'test'
+    silent: process.env.NODE_ENV === 'test',
   },
 };
 

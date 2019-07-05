@@ -25,6 +25,10 @@
     "variable-name": [
       true,
       "allow-leading-underscore"
+    ],
+    "object-literal-shorthand": [
+      true,
+      "never"
     ]
   }
 }
