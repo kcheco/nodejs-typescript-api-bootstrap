@@ -184,7 +184,7 @@ class Application {
    * @returns void
    */
   private applyCORSHeaders(): void {
-    this.webApp.all('*', (req, res, next) => {
+    this.webApp.all('*', function(req, res, next) {
       res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Headers',
                  'Content-Type, Content-Length, Accept, Authorization, X-Requested-With');

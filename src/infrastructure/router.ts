@@ -46,7 +46,7 @@ class Router {
    * @returns void
    */
   private mapRoutes(): void {
-    this._router.get('/', (req, res) => {
+    this._router.get('/', function(req, res) {
       res.json('Hello World!');
     });
 

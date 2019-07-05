@@ -35,13 +35,13 @@ export default class TodoController {
    */
   public async getList(req: Request, res: Response): Promise<void> {
     return await this._service.getAllTodos()
-      .then((todos) => {
+      .then(function(todos) {
         logger.info('GET /api/todos successful call to retrieve all todos');
         logger.info('Received response:');
         logger.info(`${todos}`);
         res.json(todos);
       })
-      .catch((err) => {
+      .catch(function(err) {
         res.status(500).json(err);
       });
   }
@@ -58,7 +58,7 @@ export default class TodoController {
     const id = req.params.id;
 
     return await this._service.findOneTodo(id)
-      .then((todo) => {
+      .then(function(todo) {
         logger.info(`GET /api/todos/%s successful call to retrieve todo`, req.params.id);
 
         if (!todo || todo === null) {
@@ -69,7 +69,7 @@ export default class TodoController {
         logger.info(`${todo}`);
         res.json(todo);
       })
-      .catch((error) => {
+      .catch(function(error) {
         logger.error(error);
         res.status(500).json({error: error});
       });
@@ -93,12 +93,12 @@ export default class TodoController {
     logger.info(`Params: %s`, JSON.stringify(req.query));
 
     return await this._service.createNewTodo(todo)
-      .then((createdTodo) => {
+      .then(function(createdTodo) {
         logger.info(`Todo created successfully`);
         logger.info(`${ createdTodo.toJSON }`);
         res.status(201).json(createdTodo);
       })
-      .catch((error) => {
+      .catch(function(error) {
         logger.error(error);
         res.status(422).json({error: error});
       });
@@ -124,7 +124,7 @@ export default class TodoController {
     logger.info(`Params: %s`, JSON.stringify(req.query));
 
     return this._service.updateExistingTodo(id, updateValue)
-      .then((completed) => {
+      .then(function(completed) {
         if (!completed) {
           logger.error('There appears to be a problem after calling todosController.updateTodo');
           throw new Error('There appears to be a problem after calling todosController.updateTodo');
@@ -137,7 +137,7 @@ export default class TodoController {
           message: `Todo id ${ id } updated successfully`,
         });
       })
-      .catch((error) => {
+      .catch(function(error) {
         logger.error(error);
         res.status(422).json({error: error});
       });
@@ -158,7 +158,7 @@ export default class TodoController {
     logger.info(`Params: %s`, JSON.stringify(req.params));
 
     return this._service.deleteOneTodo(id)
-      .then((completed) => {
+      .then(function(completed) {
         if (!completed) {
           logger.error('There appears to be a problem after calling todosController.deleteTodo');
           throw new Error('There appears to be a problem after calling todosController.deleteTodo');
@@ -171,7 +171,7 @@ export default class TodoController {
           message: `Todo id ${ id } removed successfully`,
         });
       })
-      .catch((error) => {
+      .catch(function(error) {
         logger.error(error);
         res.status(401).json({error: error});
       });
@@ -181,7 +181,7 @@ export default class TodoController {
 /**
  * A factory for creating a new TodoController along with its dependencies
  */
-export const createTodoController = (): TodoController => {
+export const createTodoController = function(): TodoController {
   const repo = new TodoRepository();
   const service = new TodoService(repo);
   const controller = new TodoController(service);
