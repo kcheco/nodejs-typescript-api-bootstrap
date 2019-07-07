@@ -16,6 +16,9 @@ const dbConfig: IDatabaseConfiguration = {
     poolSize: '5',
     useNewUrlParser: true,
     retryWrites: true,
+    autoReconnect: process.env.MONGODB_AUTORECONNECT || false,
+    reconnectTries: process.env.MONGODB_RECONNECT_ATTEMPTS || 0,
+    reconnectInterval: process.env.MONGODB_RECONNECT_INTERVAL_MS,
   },
   development: {
     // host: 'localhost',
