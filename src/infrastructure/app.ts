@@ -169,6 +169,7 @@ class Application {
   private loadSettings(): void {
     this.webApp.set('port', port);
     this.webApp.set('host', host);
+    this.webApp.use(express.json());
 
     if (this.config.corsEnabled) {
       this.applyCORSHeaders();
@@ -184,7 +185,7 @@ class Application {
    * @returns void
    */
   private applyCORSHeaders(): void {
-    this.webApp.all('*', function(req, res, next) {
+    this.webApp.all('*', (req, res, next) => {
       res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Headers',
                  'Content-Type, Content-Length, Accept, Authorization, X-Requested-With');

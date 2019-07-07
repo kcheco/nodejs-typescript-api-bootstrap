@@ -113,7 +113,7 @@ class WebServer {
    * @returns void
    */
   public turnOn(): void {
-    this.httpClient.listen(this._port, function() {
+    this.httpClient.listen(this._port, () => {
       // log successful connection
       this._app.logger.info('Application is running on %s:%s in %s mode ...',
         this._host,
@@ -122,7 +122,7 @@ class WebServer {
       );
       this._app.logger.info('To shutdown press CTRL+C\n');
     });
-    this.httpClient.on('error', function(err) {
+    this.httpClient.on('error', (err) => {
       // log errors while connecting
       this._app.logger.error(`Error occurred while turning on server ${ err }`);
     });
@@ -136,7 +136,7 @@ class WebServer {
   public shutdown(): void {
     if (this.httpClient) {
       this.httpClient.close();
-      this.httpClient.on('close', function() {
+      this.httpClient.on('close', () => {
         // log shutdown
         this._app.logger.info('Application is closing ..');
       });
