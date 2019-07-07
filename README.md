@@ -5,15 +5,27 @@ I originally started to build this solely as a Todo API for three different fron
 
 
 ### Installation
+
+#### With Docker
+1. Clone the repo or download the zip file.
+```
+git clone https://github.com/kcheco/nodejs-typesript-api-bootstrap.git
+```
+3. Go to project directory.
+2. In terminal, run `docker-compose build`.
+3. Then, run `docker-compose up`.
+
+#### Without Docker
 1. Install [Typescript](https://www.typescriptlang.org/docs/home.html).
 2. Install [MongoDB](https://docs.mongodb.com/manual/installation/) or use [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
 2. Clone the repo or download the zip file.
 ```
 git clone https://github.com/kcheco/nodejs-typesript-api-bootstrap.git
 ```
-3. Run `npm install`.
-4. Modify configuration files and set up a .env file at your own will.
-5. Create your domain layer and write tests for the API requests.
+3. Go to project directory.
+4. Run `npm install`.
+5. Modify configuration files and set up a .env file at your own will.
+6. Create your domain layer and write tests for the API requests.
 
 
 ### NPM Scripts
@@ -70,4 +82,4 @@ npm run tslint
 - Explain file structure
 - Create abstract classes for Controllers & Repositories
 - Decouple the Router class
-- Dockerize the project
+- ~~Dockerize the project~~ :white_check_mark:
