@@ -35,13 +35,13 @@ export default class TodoController {
    */
   public async getList(req: Request, res: Response): Promise<void> {
     return await this._service.getAllTodos()
-      .then(function(todos) {
+      .then((todos) => {
         logger.info('GET /api/todos successful call to retrieve all todos');
         logger.info('Received response:');
         logger.info(`${todos}`);
         res.json(todos);
       })
-      .catch(function(err) {
+      .catch((err) => {
         res.status(500).json(err);
       });
   }
@@ -58,7 +58,7 @@ export default class TodoController {
     const id = req.params.id;
 
     return await this._service.findOneTodo(id)
-      .then(function(todo) {
+      .then((todo) => {
         logger.info(`GET /api/todos/%s successful call to retrieve todo`, req.params.id);
 
         if (!todo || todo === null) {
@@ -69,7 +69,7 @@ export default class TodoController {
         logger.info(`${todo}`);
         res.json(todo);
       })
-      .catch(function(error) {
+      .catch((error) => {
         logger.error(error);
         res.status(500).json({error: error});
       });
@@ -85,20 +85,20 @@ export default class TodoController {
    */
   public async createTodo(req: Request, res: Response): Promise<void> {
     const todo = new Todo({
-      task: req.query.task,
-      completed: req.query.completed || false,
+      task: req.body.task,
+      completed: req.body.completed || false,
     });
 
     logger.info(`POST /api/todos successfully called to create a new todo`);
-    logger.info(`Params: %s`, JSON.stringify(req.query));
+    logger.info(`Params: %s`, JSON.stringify(req.body));
 
     return await this._service.createNewTodo(todo)
-      .then(function(createdTodo) {
+      .then((createdTodo) => {
         logger.info(`Todo created successfully`);
-        logger.info(`${ createdTodo.toJSON }`);
+        logger.info(JSON.stringify(createdTodo.toJSON(), null, 2) );
         res.status(201).json(createdTodo);
       })
-      .catch(function(error) {
+      .catch((error) => {
         logger.error(error);
         res.status(422).json({error: error});
       });
@@ -116,15 +116,15 @@ export default class TodoController {
     const id = req.params.id;
     const updateValue = new Todo({
       _id: id,
-      task: req.query.task,
-      completed: req.query.completed,
+      task: req.body.task,
+      completed: req.body.completed,
     });
 
     logger.info(`PUT /api/todos/${ id } successfully called`);
-    logger.info(`Params: %s`, JSON.stringify(req.query));
+    logger.info(`Params: %s`, JSON.stringify(req.body));
 
     return this._service.updateExistingTodo(id, updateValue)
-      .then(function(completed) {
+      .then((completed) => {
         if (!completed) {
           logger.error('There appears to be a problem after calling todosController.updateTodo');
           throw new Error('There appears to be a problem after calling todosController.updateTodo');
@@ -137,7 +137,7 @@ export default class TodoController {
           message: `Todo id ${ id } updated successfully`,
         });
       })
-      .catch(function(error) {
+      .catch((error) => {
         logger.error(error);
         res.status(422).json({error: error});
       });
@@ -158,7 +158,7 @@ export default class TodoController {
     logger.info(`Params: %s`, JSON.stringify(req.params));
 
     return this._service.deleteOneTodo(id)
-      .then(function(completed) {
+      .then((completed) => {
         if (!completed) {
           logger.error('There appears to be a problem after calling todosController.deleteTodo');
           throw new Error('There appears to be a problem after calling todosController.deleteTodo');
@@ -171,7 +171,7 @@ export default class TodoController {
           message: `Todo id ${ id } removed successfully`,
         });
       })
-      .catch(function(error) {
+      .catch((error) => {
         logger.error(error);
         res.status(401).json({error: error});
       });
@@ -181,7 +181,7 @@ export default class TodoController {
 /**
  * A factory for creating a new TodoController along with its dependencies
  */
-export const createTodoController = function(): TodoController {
+export const createTodoController = (): TodoController => {
   const repo = new TodoRepository();
   const service = new TodoService(repo);
   const controller = new TodoController(service);
