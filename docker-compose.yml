@@ -1,0 +1,28 @@
+version: "3.7"
+
+services:
+  app:
+    container_name: app
+    restart: always
+    build: .
+    ports:
+      - "3000:3000"
+    links:
+      - mongo
+    depends_on:
+      - mongo
+    environment:
+      - NODE_ENV=development
+      - MONGODB_URL=mongodb://mongo:27017/
+      - MONGODB_AUTORECONNECT=true
+      - MONGODB_RECONNECT_ATTEMPTS=3
+      - MONGODB_RECONNECT_INTERVAL_MS=500
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./mongo-data:/data/db
+    ports:
+      - "27017:27017"
+volumes:
+  mongo-data:
