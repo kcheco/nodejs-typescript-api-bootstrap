@@ -63,8 +63,7 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
-.env.test
+*.env
 
 # DynamoDB Local files
 .dynamodb/
@@ -79,3 +78,6 @@ build/**/*
 # OS metadata
 .DS_Store
 Thumbs.db
+
+# mongo data volume
+mongo-data
